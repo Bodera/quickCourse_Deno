@@ -1,0 +1,9 @@
+{
+    "type": "mysql",
+    "port": 3306,
+    "database": "deno",
+    "hostname": "172.17.0.2",
+    "username": "root",
+    "password": "kamisama123"
+    
+}
