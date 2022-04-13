@@ -83,3 +83,7 @@ A middleware framework inspired on KOA.
 ### Mod.ts
 
 The module file, present in every script Deno lib/project.
+
+### Validasaur
+
+It's a Deno third-party module that help us validate user input, slightly inspired by Laravel Validation.

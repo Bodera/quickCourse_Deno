@@ -10,7 +10,7 @@
   "watcher": {
     "match": [
       "app.ts",
-      "src/**/*.ts"
+      "/./*.ts"
     ]
   }
 }
