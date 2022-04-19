@@ -1,34 +1,36 @@
-// You'll need this type import
-import { type RouterMiddleware}  from "../deps.ts";
+import { type RouterMiddleware, hash, variant, version } from '../../deps.ts';
+import { User } from '../models/user.ts';
+import { UserReporitory } from '../repositories/userRepository.ts';
 
 // New version of oak no longer uses RouterContext, it uses RouterMiddleware
-export const Register: 
-    RouterMiddleware<string> = 
-        async ({ request, response }) => 
-{
-    /*
-    whatever we put in the body request, we get back in the body of the response!    
-    const body = await request.body().value;
-    response.body = body;
-    */
+export const Register:
+    RouterMiddleware<string> =
+    async ({ request, response }) => {
+        const body = await request.body().value;
 
-    const body = await request.body().value;
-    /* moved to registerValidation.ts
-        const [passes, errors] = await validate(body, {
-        first_name: [required, isString],
-        last_name: [required, isString],
-        email: [required, isEmail],
-        password: [required, isString],
-        password_confirm: [required, isString, isIn([body.password])],
-    })
+        // lines 12 to 24 adapted from https://github.com/denosaurs/argontwo/blob/main/test.ts
+        const encoder = new TextEncoder();
+        const encode = (str: string) => encoder.encode(str);
+        const hex = (arr: Uint8Array) => arr.reduce((m, i) => m + ("0" + i.toString(16)).slice(-2), "");
 
-    if (!passes) {
-        response.status = 400;
-        response.body = errors;
-        return;
+        const password = encode(body.password);
+        const salt = encode("соль");
+        const userPassword = hex(hash(password, salt, {
+            variant: variant.argon2id,
+            version: version.V0x13,
+            t: 2,
+            m: 65536,
+            p: 1,
+          }))
+
+        const user = new User();
+        user.first_name = body.first_name;
+        user.last_name = body.last_name;
+        user.email = body.email;
+        user.password = userPassword;
+
+        console.log(user);
+
+        //const userRepository = new UserReporitory();
+        //response.body = await userRepository.create(user);
     }
-
-    //console.log({passes, errors});
-    */
-    response.body = body;
-}

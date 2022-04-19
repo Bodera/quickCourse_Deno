@@ -4,7 +4,8 @@
     "start": {
       "cmd": "deno run app.ts",
       "desc": "run my app.ts file",
-      "allow": ["net"]
+      "allow": ["net"],
+      "tsconfig": "tsconfig.json"
     }
   },
   "watcher": {

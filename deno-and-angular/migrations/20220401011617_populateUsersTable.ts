@@ -1,5 +1,4 @@
-// @ts-ignore
-import { Schema, connect } from "https://deno.land/x/cotton@v0.7.5/mod.ts";
+import { Schema, connect } from "../src/deps.ts";
 
 export async function up(schema: Schema) {
   if (await schema.hasTable("users")) { 

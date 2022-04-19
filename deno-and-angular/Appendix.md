@@ -6,6 +6,10 @@ This is the appendix file.
 
 Lorem ipsum.
 
+### Argon2
+
+Winner of hash competition back in 2018. Deno has a module implementation of this algorithm.
+
 ### Cargo
 
 Rust builder.
@@ -30,6 +34,8 @@ CREATE TABLE migrations(
     CONSTRAINT migrations_pk PRIMARY KEY (id)
 );
 ```
+
+Turns out that will be unsustainable switching versions of Deno after every change in the source code. So I've cloned the repository of cotton in the `/src/modules/` folder and I applied the relevant changes to make it work smoothly, many thanks to [Sébastien Belzile](https://github.com/sbelzile-nexapp) who proposed a pull request solving an error while building the internal dependencies of this library.
 
 ### Deno.Land/x
 

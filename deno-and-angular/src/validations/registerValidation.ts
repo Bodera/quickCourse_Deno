@@ -5,13 +5,14 @@ import {
     isEmail, 
     isString, 
     isIn
-} from "../deps.ts";
+} from '../../deps.ts';
 
 export const RegisterValidation:
-    RouterMiddleware<string> = 
-        async ({ request, response },  next: Function) => 
+    RouterMiddleware<any> = 
+        async ({request, response}, next: Function) => 
 {
     const body = await request.body().value;
+
     const [passes, errors] = await validate(body, {
         first_name: [required, isString],
         last_name: [required, isString],
