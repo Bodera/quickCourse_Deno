@@ -1,9 +1,11 @@
-import { Schema, connect } from "../src/deps.ts";
+import { Schema, connect } from "../deps.ts";
 
 export async function up(schema: Schema) {
+  /*
   if (await schema.hasTable("users")) { 
     return; 
   }
+  */
   
   await schema.createTable('users', (table) => {
     table.id();
@@ -18,6 +20,7 @@ export async function up(schema: Schema) {
 }
 
 export async function down(schema: Schema) {
+  /*
   if (await schema.hasTable('users')) {
     //return;
     //const db = await connect();
@@ -33,5 +36,7 @@ export async function down(schema: Schema) {
 
     db.disconnect();
   }
+  */
+ await schema.dropTable("users");
   
 }

@@ -20,7 +20,7 @@ I had to downgrade deno to version 1.8.0 in order to properly use this module.
 
 ```bash
 $ deno install --unstable --allow-net --allow-read --allow-write --reload -n cotton https://deno.land/x/cotton@v0.7.5/cli.ts
-$ export PATH="/home/bode/.deno/bin:$PATH"
+$ export PATH="/home/user/.deno/bin:$PATH"
 $ cotton migration:create --name populateUsersTable --config config/ormconfig.json
 ```
 
@@ -36,6 +36,20 @@ CREATE TABLE migrations(
 ```
 
 Turns out that will be unsustainable switching versions of Deno after every change in the source code. So I've cloned the repository of cotton in the `/src/modules/` folder and I applied the relevant changes to make it work smoothly, many thanks to [Sébastien Belzile](https://github.com/sbelzile-nexapp) who proposed a pull request solving an error while building the internal dependencies of this library.
+
+So now to perform the migrations we need to run as the following:
+
+This creates the migration file:
+
+```bash
+$ deno run --allow-net --allow-read --allow-write modules/cotton/cli.ts migration:create --name populateUsersTable --config config/ormconfig.json
+```
+
+To execute it we run:
+
+```bash
+$ deno run --allow-net --allow-read --allow-write modules/cotton/cli.ts migration:up --config config/ormconfig.json
+```
 
 ### Deno.Land/x
 

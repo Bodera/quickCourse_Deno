@@ -1,11 +1,12 @@
 import { type RouterMiddleware, hash, variant, version } from '../../deps.ts';
 import { User } from '../models/user.ts';
-import { UserReporitory } from '../repositories/userRepository.ts';
+import { UserRepository } from '../repositories/userRepository.ts';
 
 // New version of oak no longer uses RouterContext, it uses RouterMiddleware
 export const Register:
     RouterMiddleware<string> =
     async ({ request, response }) => {
+      try {
         const body = await request.body().value;
 
         // lines 12 to 24 adapted from https://github.com/denosaurs/argontwo/blob/main/test.ts
@@ -29,8 +30,13 @@ export const Register:
         user.email = body.email;
         user.password = userPassword;
 
+        const userRepository = new UserRepository();
+        response.body = await userRepository.create(user);
+
         console.log(user);
 
-        //const userRepository = new UserReporitory();
-        //response.body = await userRepository.create(user);
+      } catch (e) {
+        console.log(e);
+        response.status = 400;
+      }
     }

@@ -84,7 +84,8 @@ export class MigrationRunner {
           }
 
           migration = { up: fileContent.up, down: fileContent.down };
-        } catch {
+        } catch (e) {
+          console.log(e);
           throw new Error(`Failed to load '${file.name}' migration file!`);
         }
 
@@ -153,7 +154,8 @@ export class MigrationRunner {
             .insert({ name: migration.name, batch: lastBatch + 1 })
             .execute();
           console.log(`${Colors.green("Migrated:")}  ${migration.name}`);
-        } catch {
+        } catch (e) {
+          console.log(e);
           throw new Error(`Failed to apply migration '${migration.name}'!`);
         }
       }
