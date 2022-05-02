@@ -5,4 +5,8 @@ export class UserRepository {
     async create(user: User) {
         return manager.save(user);
     }
+
+    async find(key: string, value: string) {
+        return manager.query(User).where(key, value).first();
+    }
 }

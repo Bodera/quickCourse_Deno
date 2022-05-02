@@ -4,7 +4,8 @@
     "start": {
       "cmd": "deno run app.ts",
       "desc": "run my app.ts file",
-      "allow": ["net"],
+      "allow": ["net", "ffi", "env", "read", "write"],
+      "unstable": true,
       "tsconfig": "tsconfig.json"
     }
   },

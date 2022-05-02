@@ -1,10 +1,14 @@
 import { Router } from '../../deps.ts';
-import { Register } from '../controllers/authController.ts';
+import { Register, Login } from '../controllers/authController.ts';
 import { RegisterValidation } from '../validations/registerValidation.ts';
+import { LoginValidation } from '../validations/loginValidation.ts';
 
 const router = new Router();
 
-router.post('/api/register', RegisterValidation, Register);
+router
+    .post('/api/register', RegisterValidation, Register)
+    .post('/api/login', LoginValidation, Login);
+
 
 /*example of http get endpoint
     .get('/', (context) => {
@@ -14,5 +18,6 @@ router.post('/api/register', RegisterValidation, Register);
         response.body = 'Персоны Конечная точка.'
     })
 */
+
 
 export default router;
